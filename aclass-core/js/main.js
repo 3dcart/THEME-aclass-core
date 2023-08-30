@@ -1,12 +1,5 @@
 //flyout cart
 function update_flyoutcart() {
-    if (window["_3d_cart"] != undefined) {
-        if (_3d_cart.oid == 0)
-            return;
-        jQuery('#floating-cart .minicart-items').text(_3d_cart.itemsum);
-        jQuery('#floating-cart').fadeIn(300);
-        return;
-    }   
     jQuery.ajax({
         url: '/frontapi.asp',
         dataType: 'json',
@@ -18,15 +11,7 @@ function update_flyoutcart() {
         success: function (data) {
             if (data.ItemsInCart != undefined) {
                 if (data.ItemsInCart.length > 0) {
-                    var totalItems = 0;
-                    for (i = 0; i < data.ItemsInCart.length; i++) {
-                        totalItems += data.ItemsInCart[i].qty;
-                    }
-                    if (totalItems != null) jQuery('#floating-cart .minicart-items').text(totalItems);
                     jQuery('#floating-cart').fadeIn(300);
-
-                    //Dropdown cart
-                    //core_dropdown_cart(data);
                 }
             }
         },
